@@ -20,9 +20,11 @@ CREATE TABLE IF NOT EXISTS  playground.fact_watch_history (
     load_timestamp DateTime DEFAULT now(),
     source_file String DEFAULT 'watch_history.csv'
 ) ENGINE = MergeTree()
-PARTITION BY toYYYYMM(watch_date)
+PARTITION BY toYYYYMMDD(watch_date, watch_id)
 ORDER BY (watch_date, user_sk, movie_sk)
 PRIMARY KEY (watch_date, user_sk, movie_sk);
+
+-- watch_date, user_sk, movies_sk
 
 -- Search Logs Fact
 CREATE TABLE IF NOT EXISTS  playground.fact_search_logs (
